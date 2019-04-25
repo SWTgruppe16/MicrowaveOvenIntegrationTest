@@ -8,7 +8,7 @@ namespace MicrowaveOvenClasses.Interfaces
 {
     public interface IDisplay
     {
-        void ShowTime(int minutes, int seconds);
+        void ShowTime(TimeSpan time);
         void ShowPower(int power);
         void Clear();
     }

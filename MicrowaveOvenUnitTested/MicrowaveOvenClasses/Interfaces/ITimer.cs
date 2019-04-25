@@ -9,11 +9,11 @@ namespace MicrowaveOvenClasses.Interfaces
 {
     public interface ITimer
     {
-        int TimeRemaining { get; }
+        TimeSpan TimeRemaining { get; }
         event EventHandler Expired;
         event EventHandler TimerTick;
 
-        void Start(int time);
+        void Start(TimeSpan time);
         void Stop();
     }
 }

@@ -37,7 +37,7 @@ namespace MicrowaveOvenClasses.Controllers
             timer.TimerTick += new EventHandler(OnTimerTick);
         }
 
-        public void StartCooking(int power, int time)
+        public void StartCooking(int power, TimeSpan time)
         {
             myPowerTube.TurnOn(power);
             myTimer.Start(time);
@@ -63,8 +63,8 @@ namespace MicrowaveOvenClasses.Controllers
 
         public void OnTimerTick(object sender, EventArgs e)
         {
-            int remaining = myTimer.TimeRemaining;
-            myDisplay.ShowTime(remaining/60, remaining % 60);
+            var remaining = myTimer.TimeRemaining;
+            myDisplay.ShowTime(remaining);
         }
     }
 }

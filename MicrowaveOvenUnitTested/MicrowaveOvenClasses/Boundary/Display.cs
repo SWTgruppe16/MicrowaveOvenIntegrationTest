@@ -1,4 +1,5 @@
 ﻿using MicrowaveOvenClasses.Interfaces;
+using System;
 
 namespace MicrowaveOvenClasses.Boundary
 {
@@ -11,9 +12,16 @@ namespace MicrowaveOvenClasses.Boundary
             myOutput = output;
         }
 
+        /*
         public void ShowTime(int min, int sec)
         {
             myOutput.OutputLine($"Display shows: {min:D2}:{sec:D2}");
+        }
+        */
+
+        public void ShowTime(TimeSpan time)
+        {
+            myOutput.OutputLine($"Display shows: {time.Minutes:D2}:{time.Seconds:D2}");
         }
 
         public void ShowPower(int power)

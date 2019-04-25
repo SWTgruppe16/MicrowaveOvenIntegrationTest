@@ -18,7 +18,7 @@ namespace MicrowaveOvenClasses.Controllers
         private IDisplay myDisplay;
 
         private int powerLevel = 50;
-        private int time = 1;
+        private TimeSpan time = TimeSpan.FromMinutes(1);
 
         public UserInterface(
             IButton powerButton,
@@ -61,12 +61,12 @@ namespace MicrowaveOvenClasses.Controllers
             switch (myState)
             {
                 case States.SETPOWER:
-                    myDisplay.ShowTime(time, 0);
+                    myDisplay.ShowTime(time);
                     myState = States.SETTIME;
                     break;
                 case States.SETTIME:
-                    time += 1;
-                    myDisplay.ShowTime(time, 0);
+                    time += TimeSpan.FromMinutes(1);
+                    myDisplay.ShowTime(time);
                     break;
             }
         }
@@ -77,7 +77,7 @@ namespace MicrowaveOvenClasses.Controllers
             {
                 case States.SETPOWER:
                     powerLevel = 50;
-                    time = 1;
+                    time = TimeSpan.FromMinutes(1);
                     myLight.TurnOff();
                     myDisplay.Clear();
                     myState = States.READY;
@@ -85,12 +85,12 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.SETTIME:
                     myDisplay.Clear();
                     myLight.TurnOn();
-                    myCooker.StartCooking(powerLevel, time*60);
+                    myCooker.StartCooking(powerLevel, time);
                     myState = States.COOKING;
                     break;
                 case States.COOKING:
                     powerLevel = 50;
-                    time = 1;
+                    time = TimeSpan.FromMinutes(1);
                     myCooker.Stop();
                     myLight.TurnOff();
                     myDisplay.Clear();
@@ -115,7 +115,7 @@ namespace MicrowaveOvenClasses.Controllers
                     break;
                 case States.SETTIME:
                     powerLevel = 50;
-                    time = 1;
+                    time = TimeSpan.FromMinutes(1);
                     myLight.TurnOn();
                     myDisplay.Clear();
                     myState = States.DOOROPEN;
@@ -123,7 +123,7 @@ namespace MicrowaveOvenClasses.Controllers
                 case States.COOKING:
                     myCooker.Stop();
                     powerLevel = 50;
-                    time = 1;
+                    time = TimeSpan.FromMinutes(1);
                     myState = States.DOOROPEN;
                     break;
             }
@@ -146,7 +146,7 @@ namespace MicrowaveOvenClasses.Controllers
             {
                 case States.COOKING:
                     powerLevel = 50;
-                    time = 1;
+                    time = TimeSpan.FromMinutes(1);
                     myDisplay.Clear();
                     myLight.TurnOff();
                     // Beep 3 times

@@ -5,7 +5,7 @@ namespace MicrowaveOvenClasses.Boundary
 {
     public class Timer : ITimer
     {
-        public int TimeRemaining { get; private set; }
+        public TimeSpan TimeRemaining { get; private set; }
 
         public event EventHandler Expired;
         public event EventHandler TimerTick;
@@ -17,12 +17,12 @@ namespace MicrowaveOvenClasses.Boundary
             timer = new System.Timers.Timer();
             // Bind OnTimerEvent with an object of this, and set up the event
             timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimerEvent);
-            timer.Interval = 1000; // 1 second intervals
+            timer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds; // 1 second intervals
             timer.AutoReset = true;  // Repeatable timer
         }
 
 
-        public void Start(int time)
+        public void Start(TimeSpan time)
         {
             TimeRemaining = time;
             timer.Enabled = true;
@@ -43,10 +43,10 @@ namespace MicrowaveOvenClasses.Boundary
         {
             // One tick has passed
             // Do what I should
-            TimeRemaining -= 1000;
+            TimeRemaining -= TimeSpan.FromSeconds(1);
             TimerTick?.Invoke(this, EventArgs.Empty);
 
-            if (TimeRemaining <= 0)
+            if (TimeRemaining <= TimeSpan.Zero)
             {
                 Expire();
             }

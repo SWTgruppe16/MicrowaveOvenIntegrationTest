@@ -133,7 +133,7 @@ namespace Microwave.Test.Unit
             // Now in SetPower
             timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            display.Received(1).ShowTime(Arg.Is<int>(1), Arg.Is<int>(0));
+            display.Received(1).ShowTime(Arg.Is<TimeSpan>(TimeSpan.FromMinutes(1)));
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace Microwave.Test.Unit
             timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            display.Received(1).ShowTime(Arg.Is<int>(2), Arg.Is<int>(0));
+            display.Received(1).ShowTime(Arg.Is<TimeSpan>(TimeSpan.FromMinutes(2)));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace Microwave.Test.Unit
             // Now in SetTime
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).StartCooking(50, 60);
+            cooker.Received(1).StartCooking(50, TimeSpan.FromMinutes(1));
         }
 
         [Test]
@@ -197,7 +197,7 @@ namespace Microwave.Test.Unit
             // Should call with correct values
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).StartCooking(100, 120);
+            cooker.Received(1).StartCooking(100, TimeSpan.FromMinutes(2));
         }
 
         [Test]
@@ -214,7 +214,7 @@ namespace Microwave.Test.Unit
             // Should call with correct values
             startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
 
-            cooker.Received(1).StartCooking(700, 60);
+            cooker.Received(1).StartCooking(700, TimeSpan.FromMinutes(1));
 
         }
 
