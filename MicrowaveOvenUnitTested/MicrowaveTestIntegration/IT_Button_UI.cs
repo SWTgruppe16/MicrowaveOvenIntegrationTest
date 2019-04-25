@@ -12,23 +12,27 @@ namespace MicrowaveTestIntegration
 {
 
     [TestFixture]
-    public class IT_Button_UI
+    public class Button_UI_integrationTest
     {
         private IButton powerButton;
         private IButton timeButton;
         private IButton startCancelButton;
         private IDoor door;
-        private IDisplay display;
+        private IUserInterface ui;
+
+        
         private ILight light;
         private ICookController cooker;
-        private IUserInterface ui;
         private IOutput output;
         private ITimer timer;
         private IPowerTube powerTube;
+        private IDisplay display;
+        private Button _uut;
 
         [SetUp]
         public void SetUp()
         {
+            _uut = new Button(); 
             powerButton = new Button();
             timeButton = new Button();
             startCancelButton = new Button();
@@ -42,6 +46,8 @@ namespace MicrowaveTestIntegration
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             //evt lav fakes, det gør programmet nemmere at teste. IT test er en "unittest" af controlleren. 
         }
+
+
 
 
 
