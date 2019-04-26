@@ -33,11 +33,11 @@ namespace MicrowaveTestIntegration
             fakeUserInterface = Substitute.For<IUserInterface>();
         }
 
-        [Test]
-        public void cookcotroler_display_Integration_Test()
-        { 
-         cookController.OnTimerTick.
-        }
+        //[Test]
+        //public void cookcotroler_display_Integration_Test()
+        //{ 
+        // cookController.OnTimerTick();
+        //}
 
 
     }
