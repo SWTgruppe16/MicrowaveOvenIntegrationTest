@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Iteration1.cs" />
+    <Compile Include="Iteration2.cs" />
     <Compile Include="Iteration3.cs" />
-    <Compile Include="IT_Button_UI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

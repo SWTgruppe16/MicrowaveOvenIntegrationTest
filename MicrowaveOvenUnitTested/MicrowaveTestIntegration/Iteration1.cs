@@ -13,7 +13,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace MicrowaveTestIntegration
 {
     [TestFixture]
-    public class Iteration1SUT
+    public class Iteration1
     {
         //Fakes
         private ITimer fakeTimer; //Lavet som fake, fordi det ellers ville tage for lang tid at køre testprogrammet

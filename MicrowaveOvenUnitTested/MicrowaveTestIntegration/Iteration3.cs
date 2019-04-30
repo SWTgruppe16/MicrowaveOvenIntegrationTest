@@ -78,23 +78,6 @@ namespace MicrowaveTestIntegration
             
         }
 
-/*
-        [Test]
-        public void display_showTimer_Test(
-            [Values(1,2,3,4,5,6,7,8,9,10)] int n_presses,
-            [Values(TimeSpan.FromMinutes(1))] TimeSpan t
-        )
-        {
-            for (var i = 0; i < n_presses; ++i) {
-                timeButton.Pressed += Raise.Event();
-            }
-            
-            display.Received().ShowTime(t);
-
-
-        }
-
-*/
         [Test, Sequential]
         public void display_showTimer_Test(
             [Values(1,2,3,4,5,6,7,8,9,10)] int n_presses
@@ -121,5 +104,34 @@ namespace MicrowaveTestIntegration
 
         #endregion
 
+        #region light
+
+        [Test]
+        public void startCooking_light_turnedOn_Test()
+        {
+            powerButton.Pressed += Raise.Event();
+            timeButton.Pressed += Raise.Event();
+            startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+
+            fakeOutput.Received().OutputLine("Light is turned on");
+        }
+
+        [Test]
+        public void doorOpen_light_turnedOn_Test()
+        {
+            fakeDoor.Opened += Raise.Event();
+            fakeOutput.Received().OutputLine("Light is turned on");
+        }
+
+        [Test]
+        public void UI_Light_DoorClose()
+        {
+            fakeDoor.Opened += Raise.Event();
+            fakeDoor.Closed += Raise.Event();
+
+            fakeOutput.Received().OutputLine("Light is turned off");
+        }
+
+        #endregion
     }
 }
