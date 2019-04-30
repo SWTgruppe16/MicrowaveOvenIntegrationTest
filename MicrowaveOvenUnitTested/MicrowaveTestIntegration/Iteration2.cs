@@ -40,20 +40,20 @@ namespace MicrowaveTestIntegration
 
         #region timer/cookController
 
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(10)]
-        public void cookController_startCooking_displayTime_Test(int time)
-        {
-            var t = TimeSpan.FromSeconds(time);
-            sut.StartCooking(50, t);
+        //[TestCase(0)]
+        //[TestCase(1)]
+        //[TestCase(2)]
+        //[TestCase(10)]
+        //public void cookController_startCooking_displayTime_Test(int time)
+        //{
+        //    var t = TimeSpan.FromSeconds(time);
+        //    sut.StartCooking(50, t);
 
-            var delay = t + TimeSpan.FromSeconds(1);
-            Thread.Sleep(Convert.ToInt32(delay.TotalMilliseconds));
+        //    var delay = t + TimeSpan.FromSeconds(1);
+        //    Thread.Sleep(Convert.ToInt32(delay.TotalMilliseconds));
 
-            fakeDisplay.Received(1).ShowTime(t - TimeSpan.FromSeconds(1));
-        }
+        //    fakeDisplay.Received(1).ShowTime(t - TimeSpan.FromSeconds(1));
+        //}
 
         [TestCase(1)]
         public void cookController_startCooking_displayTime_zero_Test(int time)
