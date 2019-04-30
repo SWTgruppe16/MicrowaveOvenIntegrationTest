@@ -64,10 +64,18 @@ namespace MicrowaveTestIntegration
             [Values(50,100,150,200,250,300,350,400,450,500,550,600,650,700)] int result_power 
         )
         {
+
+            var powers = new List<int>();    
+
             for (var i = 0; i < n_presses; ++i) {
                 powerButton.Pressed += Raise.Event();
+                var power = (i+1) * 50;
+                powers.Add(power);
+                display.Received(1).ShowPower(power); //Tests if display shows correct power
             }
-            display.Received().ShowPower(result_power); //Tests if display shows correct power
+
+            display.DidNotReceive().ShowPower(Arg.Is<int>(x => !powers.Contains(x) ));
+            
         }
 
 /*
