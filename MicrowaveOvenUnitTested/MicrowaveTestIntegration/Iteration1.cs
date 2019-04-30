@@ -17,6 +17,7 @@ namespace MicrowaveTestIntegration
     {
         //Fakes
         private ITimer fakeTimer; //Lavet som fake, fordi det ellers ville tage for lang tid at køre testprogrammet
+        private ITimer timer;
         private IOutput fakeOutput;
         private IUserInterface fakeUserInterface;
         private IDoor fakeDoor;
@@ -32,29 +33,29 @@ namespace MicrowaveTestIntegration
         private IButton powerButton;
         private IButton timeButton;
         private IButton startCancelButton;
-        
 
-  
+
         [SetUp]
         public void setUp()
         {
-            //Fakes
-            fakeTimer = Substitute.For<ITimer>(); //Lavet som fake, fordi det ellers ville tage for lang tid at køre testprogrammet
-            fakeUserInterface = Substitute.For<IUserInterface>();
-            fakeOutput = Substitute.For<IOutput>();
-            fakeDoor = new Door();
-            fakeLight = new Light(fakeOutput);
-
-            fakeUserInterface = new UserInterface(powerButton, timeButton, startCancelButton, fakeDoor, display, fakeLight, cookController);
-
-            //System under test
-            display = new Display(fakeOutput);
-            cookController = new CookController(fakeTimer, display, powerTube);
-            cookController.UI = fakeUserInterface;
-
             powerButton = Substitute.For<IButton>();
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
+
+            //Fakes
+            fakeDoor = Substitute.For<IDoor>();
+            fakeLight = Substitute.For<ILight>();
+            fakeTimer = Substitute.For<ITimer>(); //Lavet som fake, fordi det ellers ville tage for lang tid at køre testprogrammet
+            timer = new Timer();
+
+            fakeOutput = Substitute.For<IOutput>();
+            display = new Display(fakeOutput);
+            powerTube = new PowerTube(fakeOutput);
+
+            cookController = new CookController(fakeTimer, display, powerTube);
+            fakeUserInterface = new UserInterface(powerButton, timeButton, startCancelButton, fakeDoor, display, fakeLight, cookController);
+            cookController.UI = fakeUserInterface;
+  
         }
         
         #region Display
