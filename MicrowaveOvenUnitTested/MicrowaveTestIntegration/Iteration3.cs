@@ -87,8 +87,8 @@ namespace MicrowaveTestIntegration
         }
 
 */
-        [Test]
-        public void display_showTimer_Alt_Test(
+        [Test, Sequential]
+        public void display_showTimer_Test(
             [Values(1,2,3,4,5,6,7,8,9,10)] int n_presses
         )
         {
@@ -102,6 +102,13 @@ namespace MicrowaveTestIntegration
             display.Received().ShowTime(t);
 
 
+        }
+
+        [Test, Sequential]
+        public void display_showTimer_without_power_Test()
+        {
+            timeButton.Pressed += Raise.Event();   
+            display.DidNotReceiveWithAnyArgs().ShowTime(TimeSpan.Zero);
         }
 
         #endregion
