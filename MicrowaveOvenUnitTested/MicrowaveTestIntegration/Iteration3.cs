@@ -46,7 +46,7 @@ namespace MicrowaveTestIntegration
             timeButton = Substitute.For<IButton>();
             startCancelButton = Substitute.For<IButton>();
 
-            display = Substitute.For<IDisplay>();
+            display = new Display(fakeOutput);
             light = new Light(fakeOutput);
 
             cookController = new CookController(fakeTimer, display, fakePowerTube);
@@ -55,6 +55,7 @@ namespace MicrowaveTestIntegration
             cookController = new CookController(fakeTimer, display, fakePowerTube, sut);
 
         }
+
 
         #region display
 
@@ -65,17 +66,23 @@ namespace MicrowaveTestIntegration
         )
         {
 
-            var powers = new List<int>();    
+            var lines = new List<string>();    
 
-            for (var i = 0; i < n_presses; ++i) {
+            for (var i = 0; i < n_presses; ++i) { 
                 powerButton.Pressed += Raise.Event();
                 var power = (i+1) * 50;
-                powers.Add(power);
-                display.Received(1).ShowPower(power); //Tests if display shows correct power
+                var line = $"Display shows: {power} W";
+                lines.Add(line);
+                fakeOutput.Received(1).OutputLine(line);
+                //display.Received(1).ShowPower(power); //Tests if display shows correct power
             }
 
-            display.DidNotReceive().ShowPower(Arg.Is<int>(x => !powers.Contains(x) ));
-            
+           fakeOutput.DidNotReceive().OutputLine(Arg.Is<string>(x => !lines.Contains(x) ));
+            //display.ShowPower(Arg.Is<int>(x => !powers.Contains(x)));
+
+            //fakeOutput.Received().OutputLine(Arg.Is<string>(str => str.Contains($"Display shows: {powers} W")));
+
+
         }
 
         [Test, Sequential]
@@ -87,10 +94,16 @@ namespace MicrowaveTestIntegration
             
             for (var i = 0; i < n_presses; ++i) {
                 timeButton.Pressed += Raise.Event();
+               var time = TimeSpan.FromMinutes(1*i+1);
+               // var time = TimeSpan.FromMinutes(n_presses);
+                var line = ($"Display shows: {time.Minutes:D2}:{time.Seconds:D2}");
+
+                
+                fakeOutput.Received().OutputLine(line);
             }
             
-            var t = TimeSpan.FromMinutes(n_presses);
-            display.Received().ShowTime(t);
+           
+           
 
 
         }
@@ -99,7 +112,7 @@ namespace MicrowaveTestIntegration
         public void display_showTimer_without_power_Test()
         {
             timeButton.Pressed += Raise.Event();   
-            display.DidNotReceiveWithAnyArgs().ShowTime(TimeSpan.Zero);
+            fakeOutput.DidNotReceiveWithAnyArgs().OutputLine($"Display shows: {TimeSpan.FromMinutes(0)}:{TimeSpan.FromSeconds(0)}");
         }
 
         #endregion
