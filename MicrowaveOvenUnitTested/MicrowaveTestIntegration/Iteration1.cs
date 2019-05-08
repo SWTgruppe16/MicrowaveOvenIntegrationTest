@@ -63,9 +63,11 @@ namespace MicrowaveTestIntegration
         [Test] 
         public void cookController_display_showtime_test()
         {
-            powerButton.Pressed += Raise.Event();
-            timeButton.Pressed += Raise.Event();
-            startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+            //powerButton.Pressed += Raise.Event();
+            //timeButton.Pressed += Raise.Event();
+            //startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+
+            cookController.StartCooking(50, TimeSpan.FromSeconds(60));
 
             fakeTimer.TimerTick += Raise.Event();
 
@@ -93,9 +95,11 @@ namespace MicrowaveTestIntegration
         [Test]
         public void cookController_PowerTube_TurnOff()
         {
-            powerButton.Pressed += Raise.Event();
-            timeButton.Pressed += Raise.Event();
-            startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+            //powerButton.Pressed += Raise.Event();
+            //timeButton.Pressed += Raise.Event();
+            //startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+
+            cookController.StartCooking(50, TimeSpan.FromSeconds(60));
 
             cookController.Stop();
 
@@ -105,9 +109,11 @@ namespace MicrowaveTestIntegration
         [Test]
         public void cookController_TimerExpired_PowerTube_TurnOff()
         {
-            powerButton.Pressed += Raise.Event();
-            timeButton.Pressed += Raise.Event();
-            startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+            //powerButton.Pressed += Raise.Event();
+            //timeButton.Pressed += Raise.Event();
+            //startCancelButton.Pressed += Raise.Event(); //The raise of these three events puts the microwave oven into cooking state
+
+            cookController.StartCooking(50, TimeSpan.FromSeconds(60));
 
             fakeTimer.Expired += Raise.Event();
 
